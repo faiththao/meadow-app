@@ -43,6 +43,8 @@ A Saved Listing belongs to user and listing
 - listing_id
 
 # API Documentation
+![Apidoc](https://user-images.githubusercontent.com/79170369/136994885-f881134c-3142-4b67-85a0-d9da6e04cc91.png)
+
 GET /me to sessions#create to login
 DELETE "logout" to sessions#destroy to logout
 
