@@ -51,7 +51,7 @@ DELETE "logout" to sessions#destroy to logout
 
 POST /signup to users#create to create a user
 Returns a JSON 
-
+```
 {
   id: 1
   email: "this.email@gmail.com"
@@ -62,10 +62,10 @@ Returns a JSON
   birthday: "1/1/2000"
   phone_number: 2223223445
 }
-
+```
 POST listings 
 Returns a JSON
-
+```
 {
   id: 1
   user_id: 1
@@ -78,7 +78,7 @@ Returns a JSON
   washer_dryer: true
   lease: 8 months
 }
-
+```
 
 # Wire Frames
 ![wire_frame1](https://user-images.githubusercontent.com/79170369/136986383-059eaa0d-7e99-47cb-80ea-4789f1ce1b5e.png)
