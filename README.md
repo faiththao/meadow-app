@@ -1,15 +1,27 @@
 # README.md
 Meadow
 
-![user_stories](https://user-images.githubusercontent.com/79170369/136986348-ceccdb65-33b6-4da5-bfc9-b58abf13ce75.png)
-Users can login and sign up to save the homes that they are interested in and also track the listings they make themselves.
+![user_stories2 0](https://user-images.githubusercontent.com/79170369/137190061-f58fd70e-96dc-4810-a412-7f3f5f83d0b2.png)
 
-Users can create listings to help other families and individuals.
-
-Users can find listings based off of filters to save time and find exactly what they are looking for.
+Users can:
+- sign up to save the homes that they are interested in and also track the listings they make themselves
+- login
+- logout
+- view listings
+- create listings to help other families and individuals
+- find listings based off of filters to save time and find exactly what they are looking for
+  - city
+  - state
+  - utilities
+    - washer/dryer
+    - ac
+  - parking spots
+  - bedrooms
+  - bathrooms
 
 
 Frond End: https://github.com/faiththao/meadow-app-js
+
 Back End: https://github.com/faiththao/meadow-app-rails
 
 
@@ -46,10 +58,11 @@ A Saved Listing belongs to user and listing
 # API Documentation
 ![Apidoc](https://user-images.githubusercontent.com/79170369/136994885-f881134c-3142-4b67-85a0-d9da6e04cc91.png)
 
-GET /me to sessions#create to login
-DELETE "logout" to sessions#destroy to logout
+GET ```/me``` to sessions#create to login
 
-POST /signup to users#create to create a user
+DELETE ```/logout``` to sessions#destroy to logout
+
+POST ```/signup``` to users#create to create a user
 Returns a JSON 
 ```
 {
@@ -63,7 +76,7 @@ Returns a JSON
   phone_number: 2223223445
 }
 ```
-POST listings 
+POST listings
 Returns a JSON
 ```
 {
