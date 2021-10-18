@@ -7,7 +7,7 @@ import Navbar from './components/NavBar/Navbar';
 import AuthNavbar from './components/NavBar/AuthNavbar';
 
 function App() {
-  const [user, setUser] = useState({});
+  const [users, setUser] = useState({});
   const [listings, setListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -54,11 +54,10 @@ function App() {
         <AuthNavbar logOut={logOut} />
         <AuthApp
           setUser={setUser}
-          user={user}
+          users={users}
           listings={listings}
         />
         </>
-        
       ) : (
         <>
         <Navbar />
