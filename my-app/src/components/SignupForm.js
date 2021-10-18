@@ -18,7 +18,7 @@ export default function SignupForm({ signup }) {
       firstName,
       lastName,
       birthdate,
-      password,
+      phone,
     });
   }
 

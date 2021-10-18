@@ -1,24 +1,29 @@
 import './App.css';
 import { useEffect, useState } from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Redirect } from 'react-router-dom'
 import AuthApp from './components/AuthApp';
 import UnauthApp from './components/UnauthApp';
+import Navbar from './components/NavBar/Navbar';
+import AuthNavbar from './components/NavBar/AuthNavbar';
 
 function App() {
   const [user, setUser] = useState({});
+  const [listings, setListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-
-
-  function setCurrentUser(currentUser) {
-    setUser(currentUser);
-    setLoggedIn(true);
-  }
 
   function logOut() {
     setUser({});
     setLoggedIn(false);
     localStorage.token = '';
+    <Redirect to="/" />
   }
+
+  useEffect(() => {
+    fetch('http://localhost:3000/listings')
+    .then(res => res.json())
+    .then(json => setListings(json))
+}, []);
+  
 
   useEffect(() => {
     const token = localStorage.token;
@@ -34,29 +39,39 @@ function App() {
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setCurrentUser(user));
+        .then((user) => setUser(user),
+        setLoggedIn(true));
     } else {
       console.log('No token found, try logging in!');
     }
   }, []);
 
   return (
+    <>
     <BrowserRouter>
-      {user ? (
+      {loggedIn ? (
+        <>
+        <AuthNavbar logOut={logOut} />
+        <AuthApp
+          setUser={setUser}
+          user={user}
+          listings={listings}
+        />
+        </>
+        
+      ) : (
+        <>
+        <Navbar />
         <UnauthApp
           setUser={setUser}
-
+          listings={listings}
         />
-      ) : (
-        <AuthApp
-          setCurrentUser={setCurrentUser}
-          user={user}
-          loggedIn={loggedIn}
-          logOut={logOut}
-        />
+        </>
       )}
     </BrowserRouter>
-  );
+   </>
+   );
+ 
 }
 
 export default App;

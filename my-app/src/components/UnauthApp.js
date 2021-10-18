@@ -1,18 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router";
 import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
-import UnauthNavbar from "./NavBar/UnauthNavbar"
-import Listings from "../pages/Listings";
 
-export default function UnauthApp({ setUser }) {
+export default function UnauthApp({ setUser, listings }) {
 
   return (
     <>
-    <UnauthNavbar />
     <Switch>
         <Route exact path="/">
-            <Home />
+            <Home listings={listings} />
         </Route>
       <Route exact path="/signup">
         <SignUp setUser={setUser} />
