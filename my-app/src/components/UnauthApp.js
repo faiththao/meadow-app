@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
 import { Route, Switch } from "react-router";
 import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 
-export default function UnauthApp({ setUser, listings }) {
+export default function UnauthApp({ setUser, listings, signup }) {
 
   return (
     <>
@@ -12,7 +11,7 @@ export default function UnauthApp({ setUser, listings }) {
             <Home listings={listings} />
         </Route>
       <Route exact path="/signup">
-        <SignUp setUser={setUser} />
+        <SignUp setUser={setUser} signup={signup} />
       </Route>
     </Switch>
   </>

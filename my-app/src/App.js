@@ -7,12 +7,35 @@ import Navbar from './components/NavBar/Navbar';
 import AuthNavbar from './components/NavBar/AuthNavbar';
 
 function App() {
-  const [users, setUser] = useState({});
+  const [users, setUsers] = useState([]);
   const [listings, setListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const signup = (formData) => {
+    fetch("http://localhost:3000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+      body: JSON.stringify(formData),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json().then((data) => {
+          setUsers(data);
+          setLoggedIn(true)
+          localStorage.setItem("token", data.jwt)
+          console.log(res);
+        });
+      } else {
+        return res.json().then((errors) => Promise.reject(errors));
+      }
+    }, []);
+  };
+  
+
   function logOut() {
-    setUser({});
+    setUsers({});
     setLoggedIn(false);
     localStorage.token = '';
     <Redirect to="/" />
@@ -39,7 +62,7 @@ function App() {
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setUser(user),
+        .then((user) => setUsers(user),
         setLoggedIn(true));
     } else {
       console.log('No token found, try logging in!');
@@ -53,17 +76,19 @@ function App() {
         <>
         <AuthNavbar logOut={logOut} />
         <AuthApp
-          setUser={setUser}
+          setUser={setUsers}
           users={users}
           listings={listings}
+          setListings={setListings}
         />
         </>
       ) : (
         <>
         <Navbar />
         <UnauthApp
-          setUser={setUser}
+          setUser={setUsers}
           listings={listings}
+          signup={signup}
         />
         </>
       )}

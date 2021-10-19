@@ -5,8 +5,10 @@ export default function Navbar() {
     <>
       <Nav>
         <Bars />
+        <NavLink to="/">
+          <strong>Meadow</strong>
+        </NavLink>
         <NavMenu>
-          <NavLink to="/">Meadow</NavLink>
           <NavLink className="navlink" to="/signup">
             Sign Up or Login
           </NavLink>

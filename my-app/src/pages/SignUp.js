@@ -1,58 +1,49 @@
 import { useState } from "react";
 import SignupForm from "../components/SignupForm";
 import LoginForm from "../components/LoginForm";
+import { Button } from "../components/styledComponents/styledButton";
+import styled from "styled-components";
 
-export default function SignUp({ setUser, loggedIn }) {
+export default function SignUp({ signup, setUser, user }) {
   const [showLogin, setShowLogin] = useState(false);
 
-
-  const signup = (formData) => {
-    fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json().then((user) => {
-          setUser(user);
-          console.log(res);
-        });
-      } else {
-        return res.json().then((errors) => Promise.reject(errors));
-      }
-    });
-  };
-
-
   return (
-    <div>
-      <h1>Sign Up or Login</h1>
+    <MainDiv>
+      <H1>Sign Up or Login</H1>
       {showLogin ? (
         <>
           <SignupForm setUser={setUser} signup={signup} />
           <br />
           <p>
             Already have an account? &nbsp;
-            <button color="secondary" onClick={() => setShowLogin(false)}>
+            <Button color="secondary" onClick={() => setShowLogin(false)}>
               Log In
-            </button>
+            </Button>
           </p>
         </>
       ) : (
         <>
-          <LoginForm setUser={setUser} />
+          <LoginForm setUser={setUser} user={user} />
           <br />
           <p>
             Don't have an account? &nbsp;
-            <button color="secondary" onClick={() => setShowLogin(true)}>
-              Sign Up
-            </button>
+            <br />
+            <Button onClick={() => setShowLogin(true)}>Sign Up</Button>
           </p>
         </>
       )}
-    </div>
+    </MainDiv>
   );
 }
+
+const H1 = styled.h1`
+  margin: 3rem 0 2rem 0;
+  text-align: center;
+  color: #2b2118;
+  font-family: 'Andada Pro', serif;
+`;
+
+const MainDiv = styled.div`
+text-align: center;
+font-family: 'Andada Pro', serif;
+`;

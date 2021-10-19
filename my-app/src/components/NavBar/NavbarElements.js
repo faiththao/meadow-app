@@ -12,6 +12,7 @@ export const Nav = styled.nav`
   width: 100%;
   /* Third Nav */
   /* justify-content: flex-start; */
+  font-family: 'Andada Pro', serif;
 `;
   
 export const NavLink = styled(Link)`
@@ -25,6 +26,8 @@ export const NavLink = styled(Link)`
   &.active {
     color: #6F1A07;
   }
+  font-family: 'Andada Pro', serif;
+  
 `;
   
 export const Bars = styled(FaBars)`
@@ -44,7 +47,7 @@ export const Bars = styled(FaBars)`
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
-  margin-right: -24px;
+  margin-right: 20px;
   /* Second Nav */
   /* margin-right: 24px; */
   /* Third Nav */
@@ -53,4 +56,25 @@ export const NavMenu = styled.div`
   @media screen and (max-width: 768px) {
     display: none;
   }
+  font-family: 'Andada Pro', serif;
+`;
+
+export const LogoutButton = styled.button`
+background: #6F1A07;
+text-transform: uppercase;
+letter-spacing: 0.2rem;
+width: 63%;
+height: 2rem;
+border: none;
+color: #F7F3E3;
+border-radius: 2rem;
+cursor: pointer;
+font-family: 'Andada Pro', serif;
+// margin-right: auto !important;
+text-align: center;
+`;
+
+export const Div = styled.div`
+text-align: right;
+
 `;

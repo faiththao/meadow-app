@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Andada Pro', serif;
 }
 
 .App-logo {
@@ -35,4 +36,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+p {
+  color: #2B2118;
+  font-family: 'Andada Pro', serif;
+}
+
+.listing {
+  display: inline-block;
+  flex-direction: row;
+  height: fit-content;
+  color: #2B2118;
+  width: 100%;
+  border: solid;
+  font-family: 'Andada Pro', serif;
+  text-align: left;
 }
