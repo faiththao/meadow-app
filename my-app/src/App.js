@@ -1,101 +1,115 @@
-import './App.css';
-import { useEffect, useState } from 'react'
-import { BrowserRouter, Redirect } from 'react-router-dom'
-import AuthApp from './components/AuthApp';
-import UnauthApp from './components/UnauthApp';
-import Navbar from './components/NavBar/Navbar';
-import AuthNavbar from './components/NavBar/AuthNavbar';
+import "./App.css";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import LoginForm from "./components/LoginForm";
+import Home from "./pages/Home";
+import AddListing from "./pages/AddListing";
+import SignupForm from "./components/SignupForm";
+import AuthNavbar from "./components/NavBar/AuthNavbar"
+import Navbar from "./components/NavBar/Navbar"
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([]);
   const [listings, setListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const signup = (formData) => {
-    fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(formData),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json().then((data) => {
-          setUsers(data);
-          setLoggedIn(true)
-          localStorage.setItem("token", data.jwt)
-          console.log(res);
-        });
-      } else {
-        return res.json().then((errors) => Promise.reject(errors));
-      }
-    }, []);
-  };
   
 
+  function setCurrentUser(currentUser) {
+    setUser(currentUser);
+    setLoggedIn(true);
+  }
+
   function logOut() {
-    setUsers({});
+    setUser({});
     setLoggedIn(false);
-    localStorage.token = '';
-    <Redirect to="/" />
+    localStorage.token = "";
   }
 
   useEffect(() => {
-    fetch('http://localhost:3000/listings')
-    .then(res => res.json())
-    .then(json => setListings(json))
-}, []);
-  
+    fetch("http://localhost:3000/listings")
+      .then((res) => res.json())
+      .then((json) => setListings(json));
+  }, []);
+
+  const postListing = (formData) => {
+    fetch("http://localhost:3000/listings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((errors) => Promise.reject(errors));
+        }
+      })
+      .then((listing) => {
+        setListings(listings.concat(listing))
+        console.log(listing);
+      });
+  };
 
   useEffect(() => {
     const token = localStorage.token;
-    if (typeof token !== 'undefined' && token.length > 1
-      && token !== 'undefined'
+    if (
+      typeof token !== "undefined" &&
+      token.length > 1 &&
+      token !== "undefined"
     ) {
-      fetch('http://localhost:3000/auto_login', {
-        method: 'POST',
+      fetch("http://localhost:3000/auto_login", {
+        method: "POST",
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setUsers(user),
-        setLoggedIn(true));
+        .then((user) => setUser(user), setLoggedIn(true));
     } else {
-      console.log('No token found, try logging in!');
+      console.log("No token found, try logging in!");
     }
   }, []);
 
   return (
     <>
-    <BrowserRouter>
-      {loggedIn ? (
-        <>
-        <AuthNavbar logOut={logOut} />
-        <AuthApp
-          setUser={setUsers}
-          users={users}
-          listings={listings}
-          setListings={setListings}
-        />
-        </>
-      ) : (
-        <>
-        <Navbar />
-        <UnauthApp
-          setUser={setUsers}
-          listings={listings}
-          signup={signup}
-        />
-        </>
-      )}
-    </BrowserRouter>
-   </>
-   );
- 
+      <div className="main-div">
+        <BrowserRouter>
+          {loggedIn ? (
+            <>
+            <AuthNavbar logOut={logOut} />
+            </>
+          ) : <Navbar /> }
+          <Switch>
+            <Route exact path="/">
+              <Home listings={listings} />
+            </Route>
+            <Route exact path="/login">
+              {loggedIn ? (
+                <Redirect to="/" />
+              ) : (
+                <LoginForm setCurrentUser={setCurrentUser} />
+              )}
+            </Route>
+
+            <Route exact path="/signup">
+              {loggedIn ? <Redirect to="/" /> : <SignupForm />}
+            </Route>
+
+            <Route exact path="/add-listing">
+              <AddListing postListing={postListing} />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </div>
+      );
+    </>
+  );
 }
 
 export default App;

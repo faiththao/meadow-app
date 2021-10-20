@@ -1,13 +1,11 @@
-import { useState } from "react";
-import { Redirect } from "react-router-dom";
-import { Button } from "./styledComponents/styledButton";
-import { Input } from "./styledComponents/styledInput";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import { Button } from './styledComponents/styledButton';
+import { Input } from './styledComponents/styledInput';
+import styled from 'styled-components';
 
-export default function LoginForm({ setUser, user }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+export default function LoginForm({ setCurrentUser }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleLogin(event) {
     event.preventDefault();
@@ -15,50 +13,42 @@ export default function LoginForm({ setUser, user }) {
 
     const user = { email, password };
 
-    fetch("http://localhost:3000/login", {
-      method: "POST",
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ user }),
     })
-      .then((res) => res.json())
+      .then((r) => r.json())
       .then((response) => {
         localStorage.token = response.jwt;
-        setUser(response.user);
-        setLoggedIn(true);
-      }, []);
+        setCurrentUser(response.user);
+      });
   }
 
   return (
     <MainDiv>
-      <Form onSubmit={handleLogin} className="login">
-        <H2 htmlFor="username">Email</H2>
+      <Form onSubmit={handleLogin}>
+        <H2>Email</H2>
         <Input
           type="text"
-          id="username"
-          autoComplete="off"
-          value={email}
+          name="email"
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
-        <H2 htmlFor="password">Password</H2>
+        <H2>Password</H2>
         <Input
           type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
+          name="password"
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="fill" color="primary" type="submit">
-          Login
-        </Button>
+        <Button type="submit">Submit</Button>
       </Form>
-      <br />
-      {loggedIn ? (<Redirect to='/profile' />) : ("Invalid username or password.")}
-      
     </MainDiv>
-  );
+  )
 }
 
 const Form = styled.form`

@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../components/styledComponents/styledButton";
 
-export default function AddListing(postListing) {
+export default function AddListing({postListing}) {
     const [img_url, setImgUrl] = useState('');
     const [address, setAddress] = useState('');
     const [description, setDescription] = useState('');
@@ -41,7 +41,7 @@ export default function AddListing(postListing) {
         <>
         <H1>Add Listing</H1>
         <MainDiv>
-            <Form onSubmit={handleSubmit} >
+            <Form >
                 <H2>Image</H2>
                 <Input
                     type="text"
@@ -105,7 +105,7 @@ export default function AddListing(postListing) {
                     value={lease}
                     onChange={(e) => setLease(e.target.value)}
                 />
-                <Button type='submit'>Submit</Button>
+                <Button type='submit' onClick={handleSubmit}>Submit</Button>
             </Form>
         </MainDiv>
         </>

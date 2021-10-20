@@ -9,9 +9,8 @@ export default function Navbar() {
           <strong>Meadow</strong>
         </NavLink>
         <NavMenu>
-          <NavLink className="navlink" to="/signup">
-            Sign Up or Login
-          </NavLink>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/signup">SignUp</NavLink>
         </NavMenu>
       </Nav>
     </>
