@@ -25,6 +25,7 @@ export default function LoginForm({ setCurrentUser }) {
       .then((response) => {
         localStorage.token = response.jwt;
         setCurrentUser(response.user);
+        console.log(response.user)
       });
   }
 

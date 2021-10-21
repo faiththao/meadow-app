@@ -1,7 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function Listings({ listing }) {
-  const {
+  
+    const {
     id,
     address,
     description,
@@ -13,9 +15,9 @@ export default function Listings({ listing }) {
     lease,
     img_url,
   } = listing;
+
   return (
     <>
-      <H2>Listings</H2>
       <div key={id} className="listing">
         <img src={img_url} alt={img_url} />
         <H2> {address} </H2>

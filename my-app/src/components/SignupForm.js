@@ -29,7 +29,7 @@ export default function SignupForm() {
       phone,
     }
 
-    fetch('http://localhost:3000/users', {
+    fetch('http://localhost:3000/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

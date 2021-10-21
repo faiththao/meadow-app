@@ -7,13 +7,13 @@ import AddListing from "./pages/AddListing";
 import SignupForm from "./components/SignupForm";
 import AuthNavbar from "./components/NavBar/AuthNavbar"
 import Navbar from "./components/NavBar/Navbar"
+import Profile from "./pages/Profile"
 
 function App() {
   const [user, setUser] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [listings, setListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-
-  
 
   function setCurrentUser(currentUser) {
     setUser(currentUser);
@@ -28,9 +28,24 @@ function App() {
 
   useEffect(() => {
     fetch("http://localhost:3000/listings")
+    .then(res => res.json())
+    .then(res => setListings(res))
+  })
+
+  useEffect(() => {
+    fetch("http://localhost:3000/me", {
+      headers: {
+      "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify()
+    }, [])
       .then((res) => res.json())
-      .then((json) => setListings(json));
-  }, []);
+      // .then(res => console.log(res))
+      .then((json) => setUserData(json));
+      // .then(data => console.log(data))
+  })
 
   const postListing = (formData) => {
     fetch("http://localhost:3000/listings", {
@@ -51,7 +66,7 @@ function App() {
       })
       .then((listing) => {
         setListings(listings.concat(listing))
-        console.log(listing);
+        // console.log(listing);
       });
   };
 
@@ -71,7 +86,8 @@ function App() {
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setUser(user), setLoggedIn(true));
+        .then((user) => setUser(user), setLoggedIn(true),
+        console.log(user));
     } else {
       console.log("No token found, try logging in!");
     }
@@ -88,7 +104,9 @@ function App() {
           ) : <Navbar /> }
           <Switch>
             <Route exact path="/">
-              <Home listings={listings} />
+              <Home 
+              listings={listings} 
+              />
             </Route>
             <Route exact path="/login">
               {loggedIn ? (
@@ -105,12 +123,15 @@ function App() {
             <Route exact path="/add-listing">
               <AddListing postListing={postListing} />
             </Route>
+
+            <Route exact path="/profile">
+              <Profile user={userData} />
+            </Route>
           </Switch>
         </BrowserRouter>
       </div>
-      );
     </>
-  );
+  )
 }
 
 export default App;
