@@ -30,7 +30,7 @@ function App() {
     fetch("http://localhost:3000/listings")
     .then(res => res.json())
     .then(res => setListings(res))
-  })
+  }, [])
 
   useEffect(() => {
     fetch("http://localhost:3000/me", {
@@ -45,7 +45,7 @@ function App() {
       // .then(res => console.log(res))
       .then((json) => setUserData(json));
       // .then(data => console.log(data))
-  })
+  }, [])
 
   const postListing = (formData) => {
     fetch("http://localhost:3000/listings", {

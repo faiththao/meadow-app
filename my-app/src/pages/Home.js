@@ -33,7 +33,7 @@ export default function Home({ listings }) {
         <H2>H♡me is Where the Heart is</H2>
         <Input
           type="text"
-          placeholder="Enter address, city, or state..."
+          placeholder="Enter city, state, or zipcode..."
           value={searchTerm}
           onChange={handleSearch}
         />

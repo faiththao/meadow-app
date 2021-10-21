@@ -51,13 +51,13 @@ const H2 = styled.h2`
 `;
 
 export const Button = styled.button`
-  background: #6f1a07;
+  background: #F7F3E3;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   width: 20%;
   height: 2rem;
   border: none;
-  color: #f7f3e3;
+  color: #A8763E;
   border-radius: 2rem;
   cursor: pointer;
   margin-top: 25px;
