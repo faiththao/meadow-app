@@ -38,6 +38,7 @@ function App() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${localStorage.token}`,
       },
       body: JSON.stringify(formData),
     })
