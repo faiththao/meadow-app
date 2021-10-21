@@ -13,6 +13,7 @@ function App() {
   const [user, setUser] = useState([]);
   const [userData, setUserData] = useState([]);
   const [listings, setListings] = useState([]);
+  const [personalListings, setPersonalListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
 
   function setCurrentUser(currentUser) {
@@ -25,6 +26,19 @@ function App() {
     setLoggedIn(false);
     localStorage.token = "";
   }
+
+  useEffect(() => {
+    fetch("http://localhost:3000/listings/{id}", {
+      headers: {
+        "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.token}`
+        },
+        body: JSON.stringify()
+    })
+    .then(res => res.json())
+    .then(json => setPersonalListings(json))
+  }, [])
 
   useEffect(() => {
     fetch("http://localhost:3000/listings")
@@ -40,7 +54,7 @@ function App() {
         Authorization: `Bearer ${localStorage.token}`
       },
       body: JSON.stringify()
-    }, [])
+    })
       .then((res) => res.json())
       // .then(res => console.log(res))
       .then((json) => setUserData(json));
@@ -86,8 +100,8 @@ function App() {
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setUser(user), setLoggedIn(true),
-        console.log(user));
+        .then((user) => setUser(user), setLoggedIn(true))
+        // console.log(user));
     } else {
       console.log("No token found, try logging in!");
     }
@@ -125,7 +139,9 @@ function App() {
             </Route>
 
             <Route exact path="/profile">
-              <Profile user={userData} />
+            {personalListings.map(listing => (
+            <Profile key={listing.id} listing={listing} user={userData} />)
+            )}  
             </Route>
           </Switch>
         </BrowserRouter>

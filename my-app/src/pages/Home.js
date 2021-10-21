@@ -5,7 +5,7 @@ import SortBar from "../components/SortBar";
 
 export default function Home({ listings }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterBy, setFilterBy] = useState(4);
+  const [filterBy, setFilterBy] = useState(1);
 
   const listingToDisplay = listings.filter(listing => (
     listing.address.toLowerCase().includes(searchTerm.toLowerCase(),
