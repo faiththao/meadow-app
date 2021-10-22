@@ -18,7 +18,7 @@ export default function Listings({ listing }) {
   return (
     <>
       <div key={id} className="listing">
-        <img src={img_url} alt={img_url} />
+        <Img src={img_url} alt={img_url} />
         <H2> {address} </H2>
         <p> {description} </p>
         <span>
@@ -66,3 +66,8 @@ export const Button = styled.button`
 const Div = styled.div`
   text-align: right;
 `;
+
+const Img = styled.img`
+  text-algin: center;
+  width: 100%;
+`
