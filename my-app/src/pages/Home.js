@@ -1,27 +1,47 @@
 import { useState } from "react";
 import Listings from "./Listings";
 import styled from "styled-components";
+import SortBar from "../components/SortBar";
 
 export default function Home({ listings }) {
-  const [input, setInput] = useState();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterBy, setFilterBy] = useState(4);
 
-  const listingsList = listings.map((listing) => (
-    <Listings key={listing.id} listing={listing} />
+  const listingToDisplay = listings.filter(listing => (
+    listing.address.toLowerCase().includes(searchTerm.toLowerCase(),
+    listing.bedrooms === filterBy,
+    // console.log(listing.bedrooms === filterBy),
+    // console.log(filterBy)
+    )
+  ))
+
+  const listingsList = listingToDisplay.map((listing) => (
+    <Listings 
+    key={listing.id} 
+    listing={listing} 
+    />
   ));
 
+  function handleSearch(e) {
+    setSearchTerm(e.target.value);
+  }
+
+  
   return (
     <Div>
       <div className="search-bar">
         <H2>H♡me is Where the Heart is</H2>
         <Input
           type="text"
-          placeholder="Enter address, city, or state..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter city, state, or zipcode..."
+          value={searchTerm}
+          onChange={handleSearch}
         />
         <Button>Search</Button>
       </div>
       <br />
+      <H2>Listings</H2>
+      <SortBar filterBy={filterBy} setFilterBy={setFilterBy} />
       {listingsList}
     </Div>
   );
@@ -48,7 +68,7 @@ const Input = styled.input`
   padding: 1rem;
   border: none;
   outline: none;
-  color: #ECF0F1;
+  color: #6F1A07;
   font-size: 1rem;
   font-weight: bold;
   text-align: center:

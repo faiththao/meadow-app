@@ -1,7 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function Listings({ listing }) {
-  const {
+  
+    const {
     id,
     address,
     description,
@@ -13,9 +15,9 @@ export default function Listings({ listing }) {
     lease,
     img_url,
   } = listing;
+
   return (
     <>
-      <H2>Listings</H2>
       <div key={id} className="listing">
         <img src={img_url} alt={img_url} />
         <H2> {address} </H2>
@@ -49,13 +51,13 @@ const H2 = styled.h2`
 `;
 
 export const Button = styled.button`
-  background: #6f1a07;
+  background: #F7F3E3;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   width: 20%;
   height: 2rem;
   border: none;
-  color: #f7f3e3;
+  color: #A8763E;
   border-radius: 2rem;
   cursor: pointer;
   margin-top: 25px;

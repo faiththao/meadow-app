@@ -2,39 +2,67 @@ import { useState } from "react";
 import { Button } from "./styledComponents/styledButton";
 import { Input } from "./styledComponents/styledInput";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 
-export default function SignupForm({ signup }) {
+export default function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [phone, setPhone] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [created, setCreated] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    signup({
+  function createUser(event) {
+    event.preventDefault();
+    // event.target.reset();
+
+    let user = {
       email,
       password,
       password_confirmation: passwordConfirmation,
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       birthdate,
       phone,
+    }
+
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ user }),
     })
-    setEmail('')
-    setPassword('')
-    setPasswordConfirmation('')
-    setFirstName('')
-    setLastName('')
-    setBirthdate('')
-    setPhone('')
+      .then((r) => console.log(r))
+      .then((response) => {
+        if (response.status === 'created') {
+          setCreated(true);
+          setErrorMessage('');
+        }
+      })
+      .catch((response) =>
+        setErrorMessage(
+          "Uh-oh! It didn't work...Make sure your server is running!"
+        )
+      );
   }
+  
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit} className="signup">
+    <MainDiv>
+      {created ? (
+        <Redirect to="/login" />
+      ) : (
+        <div>
+          <div className="please-log-in">
+            <p>{errorMessage}</p>
+          </div>
+          <br />
+      <Form className="signup">
         <H2 htmlFor="email">Email</H2>
         <Input
           type="text"
@@ -63,14 +91,14 @@ export default function SignupForm({ signup }) {
         <Input
           type="text"
           id="first name"
-          value={firstName}
+          value={first_name}
           onChange={(e) => setFirstName(e.target.value)}
         />
         <H2>Last Name</H2>
         <Input
           type="text"
           id="last name"
-          value={lastName}
+          value={last_name}
           onChange={(e) => setLastName(e.target.value)}
         />
         <H2>Birthdate (yyyy/mm/dd)</H2>
@@ -88,12 +116,14 @@ export default function SignupForm({ signup }) {
           onChange={(e) => setPhone(e.target.value)}
         />
         <br />
-        <Button type="submit">
+        <Button type="submit" onClick={createUser}>
           {/* {isLoading ? "Loading..." : "Sign Up"} */}
           Sign Up
         </Button>
       </Form>
-    </div>
+      </div>
+      )}
+    </MainDiv>
   );
 }
 
@@ -120,4 +150,8 @@ const H2 = styled.h2`
   text-align: center;
   color: #ECF0F1;
   font-family: 'Andada Pro', serif;
+`;
+
+const MainDiv = styled.div`
+text-align: center;
 `;
