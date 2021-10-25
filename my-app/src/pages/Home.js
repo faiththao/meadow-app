@@ -8,15 +8,22 @@ export default function Home({ listings }) {
   const [filterBy, setFilterBy] = useState('');
   const [filterBath, setFilterBath] = useState('');
 
-  const listingToDisplay = listings.filter(listing => (
-    listing.address.toLowerCase().includes(searchTerm.toLowerCase()),
-    listing.bedrooms.toString().includes(filterBy),
-    listing.bathrooms.toString().includes(filterBath)
-  ))
-
   // const listingToDisplay = listings.filter(listing => (
-    
+  //   listing.address.toLowerCase().includes(searchTerm.toLowerCase()),
+  //   listing.bedrooms.toString().includes(filterBy),
+  //   listing.bathrooms.toString().includes(filterBath)
   // ))
+  // const listingToDisplay = listings
+  // .filter(listing => (
+  //   listing.address.toLowerCase().includes(searchTerm.toLowerCase()))
+  // .filter(listing => (listing.bedrooms.toString().includes(filterBy))
+  // .filter(listing.bathrooms.toString().includes(filterBath))
+
+  const listingToDisplay = listings
+  .filter(listing => listing.address.toLowerCase().includes(searchTerm.toLowerCase()))
+  .filter(listing => listing.bedrooms.toString().includes(filterBy))
+  .filter(listing => listing.bathrooms.toString().includes(filterBath))
+
 
   const listingsList = listingToDisplay.map((listing) => (
     <Listings 

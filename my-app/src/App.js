@@ -26,6 +26,18 @@ function App() {
     setLoggedIn(false);
     localStorage.token = "";
   }
+  useEffect(() => {
+    fetch("http://localhost:3000/saved_listings/listings/{id}", {
+      headers: {
+        "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.token}`
+      },
+      body: JSON.stringify()
+    })
+    // .then(res => res.json())
+    // .then(res => console.log(res))
+  }, [])
 
   useEffect(() => {
     fetch("http://localhost:3000/listings/{id}", {
@@ -37,12 +49,15 @@ function App() {
         body: JSON.stringify()
     })
     .then(res => res.json())
+    // .then(res => console.log(res))
     .then(json => setPersonalListings(json))
+    // .then(json => console.log(json))
   }, [])
 
   useEffect(() => {
     fetch("http://localhost:3000/listings")
     .then(res => res.json())
+    // .then(res => console.log(res))
     .then(res => setListings(res))
   }, [])
 
@@ -83,6 +98,19 @@ function App() {
         // console.log(listing);
       });
   };
+
+  function saveListing() {
+    fetch("http://localhost:3000/saved_listings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+      body: JSON.stringify()
+    })
+    .then(res => console.log(res))
+  }
 
   useEffect(() => {
     const token = localStorage.token;
@@ -139,9 +167,11 @@ function App() {
             </Route>
 
             <Route exact path="/profile">
-            {personalListings.map(listing => (
-            <Profile key={listing.id} listing={listing} user={userData} />)
-            )}  
+            <Profile 
+            user={userData} 
+            personalListings={personalListings}
+            saveListing={saveListing}
+            />  
             </Route>
           </Switch>
         </BrowserRouter>

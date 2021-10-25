@@ -1,23 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
+import SavedListings from "./SavedListings";
+import YourListings from "./YourListings";
 
-export default function Profile({ user, listing }) {
+export default function Profile({ user, personalListings, saveListings }) {
   const [shownInfo, setShownInfo] = useState(false);
   const [shown, setShown] = useState(false);
   const [showYourListings, setYourListings] = useState(false);
   const { email, first_name, last_name, birthdate, phone } = user;
-  const {
-    id,
-    address,
-    description,
-    bedrooms,
-    bathrooms,
-    parking,
-    ac,
-    washer_dryer,
-    lease,
-    img_url,
-  } = listing;
 
   function showInfo() {
     setShownInfo((shownInfo) => !shownInfo);
@@ -36,8 +26,18 @@ export default function Profile({ user, listing }) {
       <H2>Profile</H2>
       <MainDiv>
         <Button onClick={showInfo}>Account Details</Button>
-        <Button onClick={yourListings}>Your Listings</Button>
-        <Button onClick={savedListings}>Saved Listings</Button>
+        <Button onClick={yourListings}>
+          Your Listings
+          {showYourListings ? (personalListings.map(listing => (
+            <YourListings key={listing.id} listing={listing} />)
+            )) : null}
+        </Button>
+        <Button onClick={savedListings}>
+          Saved Listings
+          {shown ? (
+            <SavedListings />
+          ) : null}
+        </Button>
       </MainDiv>
       <Div>
         <Div2>
@@ -65,35 +65,6 @@ export default function Profile({ user, listing }) {
                 </p>
               </>
             ) : null}
-        </Div2>
-        <Div2>
-            {showYourListings ? (
-              <List key={id} className="listing">
-                <img src={img_url} alt={img_url} />
-                <H2> {address} </H2>
-                <p> {description} </p>
-                <span>
-                  <p>
-                    {" "}
-                    Bedrooms: {bedrooms} Bathrooms: {bathrooms}{" "}
-                  </p>
-                  <p> Parking Spaces: {parking} </p>
-                  <p>
-                    {" "}
-                    Air Conditioning: {ac.toString()} Washer/Dryer:{" "}
-                    {washer_dryer.toString()}
-                  </p>
-                  <p> Lease Length: {lease} </p>
-                </span>
-              </List>
-            ) : null}
-        </Div2>
-        <Div2>
-          {shown ? (
-            <>
-              <p>listings</p>
-            </>
-          ) : null}
         </Div2>
       </Div>
     </>
@@ -127,18 +98,14 @@ const Div = styled.div`
   //   border: solid;
 //   justify-content: space evenly;
   display: flex;
-  text-align: left;
+  text-align: center;
 `;
 
 const Div2 = styled.div`
 //   flex-direction: column;
 //   justify-space: space evenly;
-`;
-
-const List = styled.div`
-  flex-direction: column;
-//   justify-space: space evenly;
   text-align: left;
+  width: 100%;
 `;
 
 // const Container = styled.div`

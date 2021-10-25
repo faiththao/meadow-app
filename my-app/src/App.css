@@ -43,7 +43,7 @@ p {
   font-family: 'Andada Pro', serif;
 }
 
-/* .listing {
+.listing {
   display: inline-block;
   flex-direction: row;
   height: fit-content;
@@ -52,7 +52,7 @@ p {
   border: solid;
   font-family: 'Andada Pro', serif;
   text-align: left;
-} */
+}
 
 .listing img {
   text-align: center;

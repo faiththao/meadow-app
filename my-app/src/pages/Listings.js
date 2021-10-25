@@ -44,7 +44,7 @@ export default function Listings({ listing }) {
 
 const H2 = styled.h2`
   margin: 3rem 0 2rem 0;
-  text-align: left;
+  text-align: center;
   color: #6f1a07;
   font-family: "Andada Pro", serif;
 `;
