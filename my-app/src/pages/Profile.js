@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SavedListings from "./SavedListings";
 import YourListings from "./YourListings";
 
-export default function Profile({ user, personalListings, saveListings }) {
+export default function Profile({ user, personalListings, listings, unsave }) {
   const [shownInfo, setShownInfo] = useState(false);
   const [shown, setShown] = useState(false);
   const [showYourListings, setYourListings] = useState(false);
@@ -34,9 +34,11 @@ export default function Profile({ user, personalListings, saveListings }) {
         </Button>
         <Button onClick={savedListings}>
           Saved Listings
+          <div>
           {shown ? (
-            <SavedListings />
+            <SavedListings listings={listings} handleSave={unsave} />
           ) : null}
+          </div>
         </Button>
       </MainDiv>
       <Div>

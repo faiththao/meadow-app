@@ -3,21 +3,10 @@ import Listings from "./Listings";
 import styled from "styled-components";
 import SortBar from "../components/SortBar";
 
-export default function Home({ listings }) {
+export default function Home({ listings, handleSave }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterBy, setFilterBy] = useState('');
   const [filterBath, setFilterBath] = useState('');
-
-  // const listingToDisplay = listings.filter(listing => (
-  //   listing.address.toLowerCase().includes(searchTerm.toLowerCase()),
-  //   listing.bedrooms.toString().includes(filterBy),
-  //   listing.bathrooms.toString().includes(filterBath)
-  // ))
-  // const listingToDisplay = listings
-  // .filter(listing => (
-  //   listing.address.toLowerCase().includes(searchTerm.toLowerCase()))
-  // .filter(listing => (listing.bedrooms.toString().includes(filterBy))
-  // .filter(listing.bathrooms.toString().includes(filterBath))
 
   const listingToDisplay = listings
   .filter(listing => listing.address.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -29,6 +18,7 @@ export default function Home({ listings }) {
     <Listings 
     key={listing.id} 
     listing={listing} 
+    handleSave={handleSave}
     />
   ));
 

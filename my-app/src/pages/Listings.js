@@ -1,6 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
 
-export default function Listings({ listing }) {
+export default function Listings({ listing, handleSave }) {
   
     const {
     id,
@@ -14,6 +15,10 @@ export default function Listings({ listing }) {
     lease,
     img_url,
   } = listing;
+
+  function handleClick() {
+    handleSave(listing)
+  }
 
   return (
     <>
@@ -35,7 +40,7 @@ export default function Listings({ listing }) {
           <p> Lease Length: {lease} </p>
         </span>
         <Div>
-          <Button>Save</Button>
+          <Button onClick={() => handleClick()}>save</Button>
         </Div>
       </div>
     </>

@@ -19,6 +19,7 @@ export default function YourListings({ listing }) {
     <>
       <Div2>
         <List key={id}>
+          <br />
           <Img src={img_url} alt={img_url} />
           <H2> {address} </H2>
           <p> {description} </p>
@@ -46,7 +47,7 @@ const Div2 = styled.div`
   //   justify-space: space evenly;
   text-align: left;
   width: 100%;
-  margin-left: -440px;
+  margin-left: -580px;
   margin-top: 10px;
 `;
 
@@ -54,7 +55,7 @@ const List = styled.div`
   // flex-direction: column;
   //   justify-space: space evenly;
   text-align: left;
-  width: 100vw;
+  width: 90vw;
   display: flex-inline;
   border: solid;
 `;

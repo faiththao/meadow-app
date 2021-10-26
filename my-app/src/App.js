@@ -15,6 +15,7 @@ function App() {
   const [listings, setListings] = useState([]);
   const [personalListings, setPersonalListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [listingSaved, setListingSaved] = useState([]);
 
   function setCurrentUser(currentUser) {
     setUser(currentUser);
@@ -26,18 +27,20 @@ function App() {
     setLoggedIn(false);
     localStorage.token = "";
   }
-  useEffect(() => {
-    fetch("http://localhost:3000/saved_listings/listings/{id}", {
-      headers: {
-        "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${localStorage.token}`
-      },
-      body: JSON.stringify()
-    })
-    // .then(res => res.json())
-    // .then(res => console.log(res))
-  }, [])
+
+  function addSave(listingToSave) {
+    const listingIsSaved = listingSaved.find(
+      listing => listing.id === listingToSave.id
+    );
+    if (!listingIsSaved) {
+      setListingSaved([...listingSaved, listingToSave])
+    }
+  }
+
+  function unsave(listingToUnsave) {
+    setListingSaved((listingSaved) => 
+    listingSaved.filter((listing) => listing.id !== listingToUnsave))
+  }
 
   useEffect(() => {
     fetch("http://localhost:3000/listings/{id}", {
@@ -99,19 +102,6 @@ function App() {
       });
   };
 
-  function saveListing() {
-    fetch("http://localhost:3000/saved_listings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${localStorage.token}`,
-      },
-      body: JSON.stringify()
-    })
-    .then(res => console.log(res))
-  }
-
   useEffect(() => {
     const token = localStorage.token;
     if (
@@ -148,6 +138,7 @@ function App() {
             <Route exact path="/">
               <Home 
               listings={listings} 
+              handleSave={addSave}
               />
             </Route>
             <Route exact path="/login">
@@ -170,7 +161,8 @@ function App() {
             <Profile 
             user={userData} 
             personalListings={personalListings}
-            saveListing={saveListing}
+            listings={listingSaved}
+            unsave={unsave}
             />  
             </Route>
           </Switch>
