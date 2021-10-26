@@ -3,6 +3,7 @@ import { Button } from "./styledComponents/styledButton";
 import { Input } from "./styledComponents/styledInput";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
+import { url } from "../App"
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ export default function SignupForm() {
       phone,
     }
 
-    fetch('http://localhost:3000/signup', {
+    fetch(`${url}/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

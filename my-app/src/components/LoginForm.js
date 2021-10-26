@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from './styledComponents/styledButton';
 import { Input } from './styledComponents/styledInput';
 import styled from 'styled-components';
+import { url } from "../App"
 
 export default function LoginForm({ setCurrentUser }) {
   const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ export default function LoginForm({ setCurrentUser }) {
 
     const user = { email, password };
 
-    fetch('http://localhost:3000/login', {
+    fetch(`${url}/login`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

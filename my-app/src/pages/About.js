@@ -6,8 +6,8 @@ export default function About() {
       <H1>About Us</H1>
       <Div2>
       <P>
-        At Meadow, our goal is to help not only families and individuals find
-        temporary, but also companies find temporary housing for their traveling
+        At Meadow, our goal is to help not only families and individuals, 
+        but also companies find temporary housing for their traveling
         employees. These homes are leased out for long and short stays based on
         how long you will be temporarily living in that area. We hope we can
         help you find the perfect home for you!

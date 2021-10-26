@@ -10,6 +10,10 @@ import Navbar from "./components/NavBar/Navbar"
 import Profile from "./pages/Profile"
 import About from "./pages/About";
 
+const production = "https://boiling-waters-59018.herokuapp.com/"
+const development = "http://localhost:3000/"
+export const url = (process.env.NODE_ENV === 'production' ? production : development)
+
 function App() {
   const [user, setUser] = useState([]);
   const [userData, setUserData] = useState([]);
@@ -44,7 +48,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/listings/{id}", {
+    fetch(`${url}/listings/{id}`, {
       headers: {
         "Content-Type": "application/json",
           Accept: "application/json",
@@ -59,14 +63,14 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:3000/listings")
+    fetch(`${url}/listings`)
     .then(res => res.json())
     // .then(res => console.log(res))
     .then(res => setListings(res))
   }, [])
 
   useEffect(() => {
-    fetch("http://localhost:3000/me", {
+    fetch(`${url}/me`, {
       headers: {
       "Content-Type": "application/json",
         Accept: "application/json",
@@ -81,7 +85,7 @@ function App() {
   }, [])
 
   const postListing = (formData) => {
-    fetch("http://localhost:3000/listings", {
+    fetch(`${url}/listings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +114,7 @@ function App() {
       token.length > 1 &&
       token !== "undefined"
     ) {
-      fetch("http://localhost:3000/auto_login", {
+      fetch(`${url}/auto_login`, {
         method: "POST",
         headers: {
           Accept: "application/json",
