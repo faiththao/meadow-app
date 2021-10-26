@@ -18,7 +18,7 @@ export default function SignupForm() {
 
   function createUser(event) {
     event.preventDefault();
-    event.target.reset();
+    // event.target.reset();
 
     let user = {
       email,
