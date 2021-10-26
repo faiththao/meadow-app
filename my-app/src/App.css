@@ -57,3 +57,7 @@ p {
 .listing img {
   text-align: center;
 }
+
+img {
+  margin-top: 60px;
+}

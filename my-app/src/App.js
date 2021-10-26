@@ -8,6 +8,7 @@ import SignupForm from "./components/SignupForm";
 import AuthNavbar from "./components/NavBar/AuthNavbar"
 import Navbar from "./components/NavBar/Navbar"
 import Profile from "./pages/Profile"
+import About from "./pages/About";
 
 function App() {
   const [user, setUser] = useState([]);
@@ -164,6 +165,9 @@ function App() {
             listings={listingSaved}
             unsave={unsave}
             />  
+            </Route>
+            <Route exact path="/about">
+              <About />
             </Route>
           </Switch>
         </BrowserRouter>
