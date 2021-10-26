@@ -8,12 +8,15 @@ import SignupForm from "./components/SignupForm";
 import AuthNavbar from "./components/NavBar/AuthNavbar"
 import Navbar from "./components/NavBar/Navbar"
 import Profile from "./pages/Profile"
+import About from "./pages/About";
 
 function App() {
   const [user, setUser] = useState([]);
   const [userData, setUserData] = useState([]);
   const [listings, setListings] = useState([]);
+  const [personalListings, setPersonalListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [listingSaved, setListingSaved] = useState([]);
 
   function setCurrentUser(currentUser) {
     setUser(currentUser);
@@ -26,9 +29,39 @@ function App() {
     localStorage.token = "";
   }
 
+  function addSave(listingToSave) {
+    const listingIsSaved = listingSaved.find(
+      listing => listing.id === listingToSave.id
+    );
+    if (!listingIsSaved) {
+      setListingSaved([...listingSaved, listingToSave])
+    }
+  }
+
+  function unsave(listingToUnsave) {
+    setListingSaved((listingSaved) => 
+    listingSaved.filter((listing) => listing.id !== listingToUnsave))
+  }
+
+  useEffect(() => {
+    fetch("http://localhost:3000/listings/{id}", {
+      headers: {
+        "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.token}`
+        },
+        body: JSON.stringify()
+    })
+    .then(res => res.json())
+    // .then(res => console.log(res))
+    .then(json => setPersonalListings(json))
+    // .then(json => console.log(json))
+  }, [])
+
   useEffect(() => {
     fetch("http://localhost:3000/listings")
     .then(res => res.json())
+    // .then(res => console.log(res))
     .then(res => setListings(res))
   }, [])
 
@@ -40,7 +73,7 @@ function App() {
         Authorization: `Bearer ${localStorage.token}`
       },
       body: JSON.stringify()
-    }, [])
+    })
       .then((res) => res.json())
       // .then(res => console.log(res))
       .then((json) => setUserData(json));
@@ -86,8 +119,8 @@ function App() {
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setUser(user), setLoggedIn(true),
-        console.log(user));
+        .then((user) => setUser(user), setLoggedIn(true))
+        // console.log(user));
     } else {
       console.log("No token found, try logging in!");
     }
@@ -106,6 +139,7 @@ function App() {
             <Route exact path="/">
               <Home 
               listings={listings} 
+              handleSave={addSave}
               />
             </Route>
             <Route exact path="/login">
@@ -125,7 +159,15 @@ function App() {
             </Route>
 
             <Route exact path="/profile">
-              <Profile user={userData} />
+            <Profile 
+            user={userData} 
+            personalListings={personalListings}
+            listings={listingSaved}
+            unsave={unsave}
+            />  
+            </Route>
+            <Route exact path="/about">
+              <About />
             </Route>
           </Switch>
         </BrowserRouter>

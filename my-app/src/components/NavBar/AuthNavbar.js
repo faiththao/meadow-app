@@ -16,6 +16,9 @@ export default function AuthNavbar({ logOut }) {
           <strong>Meadow 🏠</strong>
         </NavLink>
         <NavMenu>
+          <NavLink to="/about">
+            About Us
+          </NavLink>
           <NavLink className="navlink" to="/profile">
             Profile
           </NavLink>

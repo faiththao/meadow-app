@@ -53,3 +53,11 @@ p {
   font-family: 'Andada Pro', serif;
   text-align: left;
 }
+
+.listing img {
+  text-align: center;
+}
+
+img {
+  margin-top: 60px;
+}

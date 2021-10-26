@@ -6,11 +6,12 @@ export default function Navbar() {
       <Nav>
         <Bars />
         <NavLink to="/">
-          <strong>Meadow</strong>
+          <strong>Meadow 🏠</strong>
         </NavLink>
         <NavMenu>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/signup">SignUp</NavLink>
+          <NavLink to="/about">About Us</NavLink>
+          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/signup">SignUp</NavLink>
         </NavMenu>
       </Nav>
     </>

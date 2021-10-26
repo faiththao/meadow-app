@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
-export default function SortBar({ filterBy, setFilterBy }) {
+export default function SortBar({ filterBy, setFilterBy, filterBath, setFilterBath }) {
   function handleFilter(e) {
-    setFilterBy(4);
-    // console.log(setFilterBy(4));
+    setFilterBy(e.target.value);
+  }
+
+  function handleBathFilter(e) {
+    setFilterBath(e.target.value);
   }
 
   return (
@@ -15,22 +18,25 @@ export default function SortBar({ filterBy, setFilterBy }) {
         <div>
           <p>
             Bedrooms:
-            <select onChange={handleFilter}>
+            <select onChange={handleFilter} value={filterBy}>
               {/* <option value="any">Any</option> */}
+              <option value="">Any</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
-              <option value={filterBy}>4</option>
+              <option value="4">4</option>
             </select>
           </p>
         </div>
         <div>
           <p>
             Bathrooms:
-            <select>
-              <option value="Bathrooms">1</option>
-              <option value="Bathrooms">2</option>
-              <option value="Bathrooms">3</option>
+            <select onChange={handleBathFilter} value={filterBath}>
+              <option value="">Any</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
             </select>
           </p>
         </div>

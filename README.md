@@ -4,7 +4,9 @@ Meadow
 ![user_stories2 0](https://user-images.githubusercontent.com/79170369/137190061-f58fd70e-96dc-4810-a412-7f3f5f83d0b2.png)
 
 Users can:
-- sign up to save the homes that they are interested in and also track the listings they make themselves
+- sign up 
+- save the homes that they are interested in
+- see the listings they make themselves
 - login
 - logout
 - view listings
@@ -12,10 +14,6 @@ Users can:
 - find listings based off of filters to save time and find exactly what they are looking for
   - city
   - state
-  - utilities
-    - washer/dryer
-    - ac
-  - parking spots
   - bedrooms
   - bathrooms
 

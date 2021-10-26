@@ -3,22 +3,22 @@ import Listings from "./Listings";
 import styled from "styled-components";
 import SortBar from "../components/SortBar";
 
-export default function Home({ listings }) {
+export default function Home({ listings, handleSave }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterBy, setFilterBy] = useState(4);
+  const [filterBy, setFilterBy] = useState('');
+  const [filterBath, setFilterBath] = useState('');
 
-  const listingToDisplay = listings.filter(listing => (
-    listing.address.toLowerCase().includes(searchTerm.toLowerCase(),
-    listing.bedrooms === filterBy,
-    // console.log(listing.bedrooms === filterBy),
-    // console.log(filterBy)
-    )
-  ))
+  const listingToDisplay = listings
+  .filter(listing => listing.address.toLowerCase().includes(searchTerm.toLowerCase()))
+  .filter(listing => listing.bedrooms.toString().includes(filterBy))
+  .filter(listing => listing.bathrooms.toString().includes(filterBath))
+
 
   const listingsList = listingToDisplay.map((listing) => (
     <Listings 
     key={listing.id} 
     listing={listing} 
+    handleSave={handleSave}
     />
   ));
 
@@ -41,7 +41,12 @@ export default function Home({ listings }) {
       </div>
       <br />
       <H2>Listings</H2>
-      <SortBar filterBy={filterBy} setFilterBy={setFilterBy} />
+      <SortBar 
+      filterBy={filterBy} 
+      setFilterBy={setFilterBy} 
+      filterBath={filterBath}
+      setFilterBath={setFilterBath}
+      />
       {listingsList}
     </Div>
   );
