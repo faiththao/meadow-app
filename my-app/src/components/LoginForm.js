@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Button } from './styledComponents/styledButton';
-import { Input } from './styledComponents/styledInput';
-import styled from 'styled-components';
-import { url } from "../App"
+import React, { useState } from "react";
+import { Button } from "./styledComponents/styledButton";
+import { Input } from "./styledComponents/styledInput";
+import styled from "styled-components";
+import { url } from "../App";
 
 export default function LoginForm({ setCurrentUser }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  cost[(error, setError)] = useState("");
 
   const production = "https://boiling-waters-59018.herokuapp.com/";
   const development = "http://localhost:3000/";
-  const url =
-    process.env.NODE_ENV === "production" ? production : development;
+  const url = process.env.NODE_ENV === "production" ? production : development;
 
   function handleLogin(event) {
     event.preventDefault();
@@ -21,21 +21,32 @@ export default function LoginForm({ setCurrentUser }) {
 
     fetch(`${url}/login`, {
       // fetch('http://localhost:3000/login', {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ user }),
-    })
-      .then((r) => r.json())
-      .then((response) => {
-        localStorage.setItem("jwt", response.jwt)
-        setCurrentUser(response.user);
-        console.log(response.user)
-      });
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((resp) => {
+          localStorage.setItem("jwt", resp.jwt);
+          setCurrentUser(resp.user);
+        });
+      } else {
+        console.log("wrong email or password");
+        res.json().then((resp) => {
+          setError(resp.message);
+        });
+      }
+    });
   }
-
+  // .then((r) => r.json())
+  //       .then((response) => {
+  //         localStorage.setItem("jwt", response.jwt)
+  //         setCurrentUser(response.user);
+  //         console.log(response.user)
+  //       });
   return (
     <MainDiv>
       <Form onSubmit={handleLogin}>
@@ -56,7 +67,7 @@ export default function LoginForm({ setCurrentUser }) {
         <Button type="submit">Submit</Button>
       </Form>
     </MainDiv>
-  )
+  );
 }
 
 const Form = styled.form`
@@ -67,24 +78,24 @@ const Form = styled.form`
   height: 64vh;
   width: 80vw;
   margin-left: auto;
-  background: #A8763E;
+  background: #a8763e;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
   border-radius: 10px;
-  color: #ECF0F1;
+  color: #ecf0f1;
   text-transform: uppercase;
   letter-spacing: 0.4rem;
-  font-family: 'Andada Pro', serif;
+  font-family: "Andada Pro", serif;
 `;
 
 const MainDiv = styled.div`
-text-align: center;
+  text-align: center;
 `;
 
 const H2 = styled.h2`
   margin: 3rem 0 2rem 0;
   text-align: center;
-  color: #ECF0F1;
-  font-family: 'Andada Pro', serif;
+  color: #ecf0f1;
+  font-family: "Andada Pro", serif;
 `;
