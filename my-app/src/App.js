@@ -12,7 +12,7 @@ import About from "./pages/About";
 
 const production = "https://boiling-waters-59018.herokuapp.com/"
 const development = "http://localhost:3000/"
-export const url = (process.env.NODE_ENV === 'production' ? production : development)
+export const url = process.env.NODE_ENV === 'production' ? production : development;
 
 function App() {
   const [user, setUser] = useState([]);
@@ -64,8 +64,8 @@ function App() {
   }, [])
 
   useEffect(() => {
-    // fetch(`${url}/listings`)
-    fetch('http://localhost:3000/listings')
+    fetch(`${url}/listings`)
+    // fetch('http://localhost:3000/listings')
     .then(res => res.json())
     // .then(res => console.log(res))
     .then(res => setListings(res))
