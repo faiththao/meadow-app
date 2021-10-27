@@ -3,7 +3,6 @@ import { Button } from "./styledComponents/styledButton";
 import { Input } from "./styledComponents/styledInput";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
-import { url } from "../App"
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");

@@ -10,11 +10,6 @@ import Navbar from "./components/NavBar/Navbar";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
 
-export const production = "https://boiling-waters-59018.herokuapp.com/";
-export const development = "http://localhost:3000/";
-export const url =
-  process.env.NODE_ENV === "production" ? production : development;
-
 function App() {
   const [user, setUser] = useState([]);
   const [userData, setUserData] = useState([]);
