@@ -5,14 +5,15 @@ import LoginForm from "./components/LoginForm";
 import Home from "./pages/Home";
 import AddListing from "./pages/AddListing";
 import SignupForm from "./components/SignupForm";
-import AuthNavbar from "./components/NavBar/AuthNavbar"
-import Navbar from "./components/NavBar/Navbar"
-import Profile from "./pages/Profile"
+import AuthNavbar from "./components/NavBar/AuthNavbar";
+import Navbar from "./components/NavBar/Navbar";
+import Profile from "./pages/Profile";
 import About from "./pages/About";
 
-export const production = "https://boiling-waters-59018.herokuapp.com/"
-export const development = "http://localhost:3000/"
-export const url = process.env.NODE_ENV === 'production' ? production : development;
+export const production = "https://boiling-waters-59018.herokuapp.com/";
+export const development = "http://localhost:3000/";
+export const url =
+  process.env.NODE_ENV === "production" ? production : development;
 
 function App() {
   const [user, setUser] = useState([]);
@@ -21,6 +22,11 @@ function App() {
   const [personalListings, setPersonalListings] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [listingSaved, setListingSaved] = useState([]);
+
+  const production = "https://boiling-waters-59018.herokuapp.com/";
+  const development = "http://localhost:3000/";
+  export const url =
+    process.env.NODE_ENV === "production" ? production : development;
 
   function setCurrentUser(currentUser) {
     setUser(currentUser);
@@ -35,61 +41,62 @@ function App() {
 
   function addSave(listingToSave) {
     const listingIsSaved = listingSaved.find(
-      listing => listing.id === listingToSave.id
+      (listing) => listing.id === listingToSave.id
     );
     if (!listingIsSaved) {
-      setListingSaved([...listingSaved, listingToSave])
+      setListingSaved([...listingSaved, listingToSave]);
     }
   }
 
   function unsave(listingToUnsave) {
-    setListingSaved((listingSaved) => 
-    listingSaved.filter((listing) => listing.id !== listingToUnsave))
+    setListingSaved((listingSaved) =>
+      listingSaved.filter((listing) => listing.id !== listingToUnsave)
+    );
   }
 
   useEffect(() => {
     // fetch(`${url}/listings/{id}`, {
-      fetch('http://localhost:3000/listings/{id}', {
+    fetch("http://localhost:3000/listings/{id}", {
       headers: {
         "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${localStorage.token}`
-        },
-        body: JSON.stringify()
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+      body: JSON.stringify(),
     })
-    .then(res => res.json())
-    // .then(res => console.log(res))
-    .then(json => setPersonalListings(json))
+      .then((res) => res.json())
+      // .then(res => console.log(res))
+      .then((json) => setPersonalListings(json));
     // .then(json => console.log(json))
-  }, [])
+  }, []);
 
   useEffect(() => {
     fetch(`${url}/listings`)
-    // fetch('http://localhost:3000/listings')
-    .then(res => res.json())
-    // .then(res => console.log(res))
-    .then(res => setListings(res))
-  }, [])
+      // fetch('http://localhost:3000/listings')
+      .then((res) => res.json())
+      // .then(res => console.log(res))
+      .then((res) => setListings(res));
+  }, []);
 
   useEffect(() => {
     // fetch(`${url}/me`, {
-      fetch('http://localhost:3000/me', {
+    fetch("http://localhost:3000/me", {
       headers: {
-      "Content-Type": "application/json",
+        "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${localStorage.token}`
+        Authorization: `Bearer ${localStorage.token}`,
       },
-      body: JSON.stringify()
+      body: JSON.stringify(),
     })
       .then((res) => res.json())
       // .then(res => console.log(res))
       .then((json) => setUserData(json));
-      // .then(data => console.log(data))
-  }, [])
+    // .then(data => console.log(data))
+  }, []);
 
   const postListing = (formData) => {
     // fetch(`${url}/listings`, {
-      fetch('http://localhost:3000/listings', {
+    fetch("http://localhost:3000/listings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,7 +113,7 @@ function App() {
         }
       })
       .then((listing) => {
-        setListings(listings.concat(listing))
+        setListings(listings.concat(listing));
         // console.log(listing);
       });
   };
@@ -119,7 +126,7 @@ function App() {
       token !== "undefined"
     ) {
       // fetch(`${url}/auto_login`, {
-        fetch('http://localhost:3000/auto_login', {
+      fetch("http://localhost:3000/auto_login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -128,8 +135,8 @@ function App() {
         body: JSON.stringify({ token }),
       })
         .then((r) => r.json())
-        .then((user) => setUser(user), setLoggedIn(true))
-        // console.log(user));
+        .then((user) => setUser(user), setLoggedIn(true));
+      // console.log(user));
     } else {
       console.log("No token found, try logging in!");
     }
@@ -141,15 +148,14 @@ function App() {
         <BrowserRouter>
           {loggedIn ? (
             <>
-            <AuthNavbar logOut={logOut} />
+              <AuthNavbar logOut={logOut} />
             </>
-          ) : <Navbar /> }
+          ) : (
+            <Navbar />
+          )}
           <Switch>
             <Route exact path="/">
-              <Home 
-              listings={listings} 
-              handleSave={addSave}
-              />
+              <Home listings={listings} handleSave={addSave} />
             </Route>
             <Route exact path="/login">
               {loggedIn ? (
@@ -168,12 +174,12 @@ function App() {
             </Route>
 
             <Route exact path="/profile">
-            <Profile 
-            user={userData} 
-            personalListings={personalListings}
-            listings={listingSaved}
-            unsave={unsave}
-            />  
+              <Profile
+                user={userData}
+                personalListings={personalListings}
+                listings={listingSaved}
+                unsave={unsave}
+              />
             </Route>
             <Route exact path="/about">
               <About />
@@ -182,7 +188,7 @@ function App() {
         </BrowserRouter>
       </div>
     </>
-  )
+  );
 }
 
 export default App;
