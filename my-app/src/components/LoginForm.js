@@ -32,7 +32,7 @@ export default function LoginForm({ setCurrentUser }) {
       .then((response) => {
         localStorage.setItem("jwt", response.jwt)
         setCurrentUser(response.user);
-        // console.log(response.user)
+        console.log(response.user)
       });
   }
 
