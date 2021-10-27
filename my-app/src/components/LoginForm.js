@@ -7,7 +7,7 @@ import { url } from "../App";
 export default function LoginForm({ setCurrentUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  cost[(error, setError)] = useState("");
+  const [error, setError] = useState("");
 
   const production = "https://boiling-waters-59018.herokuapp.com/";
   const development = "http://localhost:3000/";
@@ -66,6 +66,7 @@ export default function LoginForm({ setCurrentUser }) {
         />
         <Button type="submit">Submit</Button>
       </Form>
+      <h4 className="login-error">{error}</h4>
     </MainDiv>
   );
 }
