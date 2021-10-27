@@ -66,7 +66,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch(`${url}/listings`)
+    fetch(`${url}listings`)
       // fetch('http://localhost:3000/listings')
       .then((res) => res.json())
       // .then(res => console.log(res))
