@@ -10,8 +10,8 @@ import Navbar from "./components/NavBar/Navbar"
 import Profile from "./pages/Profile"
 import About from "./pages/About";
 
-const production = "https://boiling-waters-59018.herokuapp.com/"
-const development = "http://localhost:3000/"
+export const production = "https://boiling-waters-59018.herokuapp.com/"
+export const development = "http://localhost:3000/"
 export const url = process.env.NODE_ENV === 'production' ? production : development;
 
 function App() {
