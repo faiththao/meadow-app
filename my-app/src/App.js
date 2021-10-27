@@ -25,7 +25,7 @@ function App() {
 
   const production = "https://boiling-waters-59018.herokuapp.com/";
   const development = "http://localhost:3000/";
-  export const url =
+  const url =
     process.env.NODE_ENV === "production" ? production : development;
 
   function setCurrentUser(currentUser) {

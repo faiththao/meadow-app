@@ -8,6 +8,11 @@ export default function LoginForm({ setCurrentUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const production = "https://boiling-waters-59018.herokuapp.com/";
+  const development = "http://localhost:3000/";
+  const url =
+    process.env.NODE_ENV === "production" ? production : development;
+
   function handleLogin(event) {
     event.preventDefault();
     event.target.reset();
