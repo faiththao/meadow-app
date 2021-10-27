@@ -50,8 +50,8 @@ function App() {
   }
 
   useEffect(() => {
-    // fetch(`${url}/listings/{id}`, {
-    fetch("http://localhost:3000/listings/{id}", {
+    fetch(`${url}/listings/{id}`, {
+    // fetch("http://localhost:3000/listings/{id}", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -74,8 +74,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // fetch(`${url}/me`, {
-    fetch("http://localhost:3000/me", {
+    fetch(`${url}/me`, {
+    // fetch("http://localhost:3000/me", {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -90,8 +90,8 @@ function App() {
   }, []);
 
   const postListing = (formData) => {
-    // fetch(`${url}/listings`, {
-    fetch("http://localhost:3000/listings", {
+    fetch(`${url}/listings`, {
+    // fetch("http://localhost:3000/listings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -120,8 +120,8 @@ function App() {
       token.length > 1 &&
       token !== "undefined"
     ) {
-      // fetch(`${url}/auto_login`, {
-      fetch("http://localhost:3000/auto_login", {
+      fetch(`${url}/auto_login`, {
+      // fetch("http://localhost:3000/auto_login", {
         method: "POST",
         headers: {
           Accept: "application/json",

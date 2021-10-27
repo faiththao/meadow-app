@@ -19,8 +19,8 @@ export default function LoginForm({ setCurrentUser }) {
 
     const user = { email, password };
 
-    // fetch(`${url}/login`, {
-      fetch('http://localhost:3000/login', {
+    fetch(`${url}/login`, {
+      // fetch('http://localhost:3000/login', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
