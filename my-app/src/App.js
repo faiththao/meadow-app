@@ -149,7 +149,7 @@ function App() {
             <Navbar />
           )}
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/meadow-app-js">
               <Home listings={listings} handleSave={addSave} />
             </Route>
             <Route exact path="/login">

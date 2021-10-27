@@ -12,7 +12,7 @@ export default function AuthNavbar({ logOut }) {
     <>
       <Nav>
         <Bars />
-        <NavLink to="/">
+        <NavLink to="/meadow-app-js">
           <strong>Meadow 🏠</strong>
         </NavLink>
         <NavMenu>
