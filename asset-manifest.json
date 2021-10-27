@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/meadow-app-js/static/css/main.dfa7f5db.chunk.css",
-    "main.js": "/meadow-app-js/static/js/main.8d20dbff.chunk.js",
-    "main.js.map": "/meadow-app-js/static/js/main.8d20dbff.chunk.js.map",
+    "main.js": "/meadow-app-js/static/js/main.d7c8f252.chunk.js",
+    "main.js.map": "/meadow-app-js/static/js/main.d7c8f252.chunk.js.map",
     "runtime-main.js": "/meadow-app-js/static/js/runtime-main.d9e4d30e.js",
     "runtime-main.js.map": "/meadow-app-js/static/js/runtime-main.d9e4d30e.js.map",
     "static/js/2.f22fe1c3.chunk.js": "/meadow-app-js/static/js/2.f22fe1c3.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d9e4d30e.js",
     "static/js/2.f22fe1c3.chunk.js",
     "static/css/main.dfa7f5db.chunk.css",
-    "static/js/main.8d20dbff.chunk.js"
+    "static/js/main.d7c8f252.chunk.js"
   ]
 }
