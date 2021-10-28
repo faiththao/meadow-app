@@ -15,8 +15,8 @@ export default function SignupForm() {
   const [created, setCreated] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const production = "https://boiling-waters-59018.herokuapp.com/";
-  const development = "http://localhost:3000/";
+  const production = "https://boiling-waters-59018.herokuapp.com";
+  const development = "http://localhost:3000";
   const url =
     process.env.NODE_ENV === "production" ? production : development;
 
