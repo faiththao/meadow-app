@@ -33,6 +33,13 @@ export default function SignupForm() {
       birthdate,
       phone,
     }
+    setEmail('')
+    setPassword('')
+    setPasswordConfirmation('')
+    setFirstName('')
+    setLastName('')
+    setBirthdate('')
+    setPhone('')
 
     fetch(`${url}/signup`, {
     // fetch('http://localhost:3000/signup', {
@@ -43,18 +50,13 @@ export default function SignupForm() {
       },
       body: JSON.stringify({ user }),
     })
-      .then((r) => console.log(r))
+      .then((r) => r.json())
       .then((response) => {
         if (response.status === 'created') {
           setCreated(true);
           setErrorMessage('');
         }
       })
-      .catch((response) =>
-        setErrorMessage(
-          "Uh-oh! It didn't work...Make sure your server is running!"
-        )
-      );
   }
   
 
